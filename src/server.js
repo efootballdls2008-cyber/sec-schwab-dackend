@@ -563,6 +563,7 @@ async function runMigrations() {
   const modifyMigrations = [
     `ALTER TABLE platform_accounts MODIFY COLUMN bank_name VARCHAR(255) DEFAULT NULL`,
     `ALTER TABLE platform_accounts MODIFY COLUMN account_number VARCHAR(100) DEFAULT NULL`,
+    `ALTER TABLE support_messages MODIFY COLUMN user_id INT DEFAULT NULL`,
   ];
 
   for (const sql of modifyMigrations) {
@@ -668,7 +669,7 @@ async function runMigrations() {
     // Support messages — stores support ticket history
     `CREATE TABLE IF NOT EXISTS support_messages (
       id            INT AUTO_INCREMENT PRIMARY KEY,
-      user_id       INT NOT NULL,
+      user_id       INT DEFAULT NULL,
       ticket_ref    VARCHAR(50) NOT NULL UNIQUE,
       subject       VARCHAR(255) NOT NULL,
       message       TEXT NOT NULL,
